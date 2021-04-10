@@ -46,9 +46,9 @@ def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
-        '--model', help='File path of .tflite file.', required=True)
+        '--model', help='File path of .tflite file.', required=False)
     parser.add_argument(
-        '--labels', help='File path of labels file.', required=True)
+        '--labels', help='File path of labels file.', required=False)
     args = parser.parse_args()
     global labels
     labels = load_labels(args.labels)
