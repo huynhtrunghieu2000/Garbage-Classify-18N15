@@ -17,7 +17,7 @@ try:
         #
         p.ChangeDutyCycle(7)
         time.sleep(2)
-        p.ChangeDutyCycle(10)
+        p.ChangeDutyCycle(9.5)
         time.sleep(2)
 
 except KeyboardInterrupt:
