@@ -9,8 +9,6 @@ import time
 import numpy as np
 import picamera
 
-import gpioControl
-
 from PIL import Image
 from tflite_runtime.interpreter import Interpreter
 
