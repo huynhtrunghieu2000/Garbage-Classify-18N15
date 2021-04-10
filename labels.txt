@@ -1,2 +1,2 @@
-0 Inorganic
-1 Organic
+0 Huuco
+1 VOCO
