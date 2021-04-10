@@ -4,7 +4,7 @@ import garbage_classify as ras
 
 
 def quay(label):
-
+    print('ok')
     servoPIN = 17
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(servoPIN, GPIO.OUT)
