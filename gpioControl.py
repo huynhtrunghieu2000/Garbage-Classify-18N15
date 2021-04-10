@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-from . import garbage_classify as ras
+import garbage_classify as ras
 
 
 def quay(label):
