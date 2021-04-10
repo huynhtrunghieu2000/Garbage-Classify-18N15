@@ -77,7 +77,6 @@ def main():
                                                             elapsed_ms)
         finally:
             camera.stop_preview()
-    return labels
 
 
 if __name__ == '__main__':

@@ -12,14 +12,14 @@ def quay(label):
     p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
     p.start(2.5)  # Initialization
     try:
-        if label[label_id] == 1:
+        if label[labels_id] == 1:
             # 7-> 90*
             p.ChangeDutyCycle(7)
             time.sleep(3)
             p.ChangeDutyCycle(3.8)
             time.sleep(3)
             p.ChangeDutyCycle(7)
-        elif label[label_id] == 0:
+        elif label[labels_id] == 0:
             p.ChangeDutyCycle(7)
             time.sleep(3)
             p.ChangeDutyCycle(9.4)
@@ -34,4 +34,5 @@ def quay(label):
 if __name__ == 'main':
     ras.main()
     label = ras.labels
+    labels_id = ras.label_id
     quay(label)
