@@ -79,5 +79,4 @@ def main():
             camera.stop_preview()
 
 
-if __name__ == '__main__':
-    main()
+main()
