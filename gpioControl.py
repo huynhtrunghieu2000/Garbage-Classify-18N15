@@ -32,6 +32,7 @@ def quay(label):
 
 
 if __name__ == 'main':
+    print('ok')
     ras.main()
     label = ras.labels
     labels_id = ras.label_id
