@@ -60,45 +60,45 @@ def main():
     with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
         camera.start_preview()
         try:
-            while True:
-                stream = io.BytesIO()
-                for _ in camera.capture_continuous(
-                        stream, format='jpeg', use_video_port=True):
-                    stream.seek(0)
-                    image = Image.open(stream).convert('RGB').resize((width, height),
-                                                                     Image.ANTIALIAS)
-                    start_time = time.time()
-                    results = classify_image(interpreter, image)
-                    elapsed_ms = (time.time() - start_time) * 1000
-                    label_id, prob = results[0]
-                    stream.seek(0)
-                    stream.truncate()
-                    camera.annotate_text = '%s %.2f\n%.1fms' % (labels[label_id], prob,
-                                                                elapsed_ms)
-                    servoPIN = 17
-                    GPIO.setmode(GPIO.BCM)
-                    GPIO.setup(servoPIN, GPIO.OUT)
+            servoPIN = 17
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(servoPIN, GPIO.OUT)
 
-                    p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
-                    p.start(2.5)  # Initialization
-                    try:
-                        if labels[label_id] == 1:
-                            # 7-> 90*
-                            p.ChangeDutyCycle(7)
-                            time.sleep(10)
-                            p.ChangeDutyCycle(3.8)
-                            time.sleep(10)
-                            p.ChangeDutyCycle(7)
-                        elif labels[label_id] == 0:
-                            p.ChangeDutyCycle(7)
-                            time.sleep(10)
-                            p.ChangeDutyCycle(9.4)
-                            time.sleep(10)
-                            p.ChangeDutyCycle(7)
+            p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
+            p.start(2.5)  # Initialization
+            stream = io.BytesIO()
+            for _ in camera.capture_continuous(
+                    stream, format='jpeg', use_video_port=True):
+                stream.seek(0)
+                image = Image.open(stream).convert('RGB').resize((width, height),
+                                                                 Image.ANTIALIAS)
+                start_time = time.time()
+                results = classify_image(interpreter, image)
+                elapsed_ms = (time.time() - start_time) * 1000
+                label_id, prob = results[0]
+                stream.seek(0)
+                stream.truncate()
+                camera.annotate_text = '%s %.2f\n%.1fms' % (labels[label_id], prob,
+                                                            elapsed_ms)
 
-                    except KeyboardInterrupt:
-                        p.stop()
-                        GPIO.cleanup()
+                try:
+                    if labels[label_id] == 1:
+                        # 7-> 90*
+                        p.ChangeDutyCycle(7)
+                        time.sleep(10)
+                        p.ChangeDutyCycle(3.8)
+                        time.sleep(10)
+                        p.ChangeDutyCycle(7)
+                    elif labels[label_id] == 0:
+                        p.ChangeDutyCycle(7)
+                        time.sleep(10)
+                        p.ChangeDutyCycle(9.4)
+                        time.sleep(10)
+                        p.ChangeDutyCycle(7)
+
+                except KeyboardInterrupt:
+                    p.stop()
+                    GPIO.cleanup()
         finally:
             camera.stop_preview()
 
