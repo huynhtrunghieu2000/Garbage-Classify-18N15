@@ -1,25 +1,36 @@
 import RPi.GPIO as GPIO
 import time
+import garbage_classify as ras
 
-servoPIN = 17
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(servoPIN, GPIO.OUT)
 
-p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
-p.start(2.5)  # Initialization
-try:
-    while True:
-        # 7-> 90*
-        p.ChangeDutyCycle(7)
-        time.sleep(2)
-        p.ChangeDutyCycle(4)
-        time.sleep(2)
-        #
-        p.ChangeDutyCycle(7)
-        time.sleep(2)
-        p.ChangeDutyCycle(9.5)
-        time.sleep(2)
+def quay(labels[label_id]):
 
-except KeyboardInterrupt:
-    p.stop()
-    GPIO.cleanup()
+    servoPIN = 17
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(servoPIN, GPIO.OUT)
+
+    p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
+    p.start(2.5)  # Initialization
+    try:
+        if labels[label_id] == 1:
+            # 7-> 90*
+            p.ChangeDutyCycle(7)
+            time.sleep(3)
+            p.ChangeDutyCycle(3.8)
+            time.sleep(3)
+            p.ChangeDutyCycle(7)
+        elif labels[label_id] == 0:
+            p.ChangeDutyCycle(7)
+            time.sleep(3)
+            p.ChangeDutyCycle(9.4)
+            time.sleep(3)
+            p.ChangeDutyCycle(7)
+
+    except KeyboardInterrupt:
+        p.stop()
+        GPIO.cleanup()
+
+
+if __name__ == 'main':
+    ras.main()
+    quay(labels[label_id])
