@@ -48,7 +48,6 @@ def main():
     parser.add_argument(
         '--labels', help='File path of labels file.', required=False)
     args = parser.parse_args()
-    global labels
     labels = load_labels(args.labels)
 
     interpreter = Interpreter(args.model)
@@ -58,7 +57,6 @@ def main():
     with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
         camera.start_preview()
         try:
-            global label_id
             stream = io.BytesIO()
             for _ in camera.capture_continuous(
                     stream, format='jpeg', use_video_port=True):
