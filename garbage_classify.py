@@ -8,6 +8,9 @@ import time
 import numpy as np
 import picamera
 
+import RPi.GPIO as GPIO
+import time
+
 from PIL import Image
 from tflite_runtime.interpreter import Interpreter
 
@@ -71,6 +74,30 @@ def main():
                 stream.truncate()
                 camera.annotate_text = '%s %.2f\n%.1fms' % (labels[label_id], prob,
                                                             elapsed_ms)
+                servoPIN = 17
+                GPIO.setmode(GPIO.BCM)
+                GPIO.setup(servoPIN, GPIO.OUT)
+
+                p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
+                p.start(2.5)  # Initialization
+                try:
+                    if labels[label_id] == 1:
+                        # 7-> 90*
+                        p.ChangeDutyCycle(7)
+                        time.sleep(10)
+                        p.ChangeDutyCycle(3.8)
+                        time.sleep(10)
+                        p.ChangeDutyCycle(7)
+                    elif labels[label_id] == 0:
+                        p.ChangeDutyCycle(7)
+                        time.sleep(10)
+                        p.ChangeDutyCycle(9.4)
+                        time.sleep(10)
+                        p.ChangeDutyCycle(7)
+
+                except KeyboardInterrupt:
+                    p.stop()
+                    GPIO.cleanup()
         finally:
             camera.stop_preview()
 
