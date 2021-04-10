@@ -31,9 +31,10 @@ def quay(label):
         GPIO.cleanup()
 
 
-if __name__ == '__main__':
-    print('ok')
-    ras.main()
-    label = ras.labels
-    labels_id = ras.label_id
-    quay(label)
+print('ok')
+ras.main()
+print("Chay main")
+label = ras.labels
+labels_id = ras.label_id
+print(labels_id)
+quay(label)

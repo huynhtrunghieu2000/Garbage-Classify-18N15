@@ -77,7 +77,3 @@ def main():
                                                             elapsed_ms)
         finally:
             camera.stop_preview()
-
-
-if __name__ == '__main__':
-    main()
