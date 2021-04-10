@@ -1,4 +1,3 @@
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -44,10 +43,11 @@ def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
-        '--model', help='File path of .tflite file.', required=False)
+        '--model', help='File path of .tflite file.', required=True)
     parser.add_argument(
-        '--labels', help='File path of labels file.', required=False)
+        '--labels', help='File path of labels file.', required=True)
     args = parser.parse_args()
+
     labels = load_labels(args.labels)
 
     interpreter = Interpreter(args.model)
@@ -73,3 +73,7 @@ def main():
                                                             elapsed_ms)
         finally:
             camera.stop_preview()
+
+
+# if __name__ == '__main__':
+#   main()
