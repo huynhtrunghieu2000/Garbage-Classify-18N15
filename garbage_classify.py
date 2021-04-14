@@ -69,6 +69,7 @@ def main():
             stream = io.BytesIO()
             for _ in camera.capture_continuous(
                     stream, format='jpeg', use_video_port=True):
+
                 stream.seek(0)
                 image = Image.open(stream).convert('RGB').resize((width, height),
                                                                  Image.ANTIALIAS)
@@ -82,20 +83,20 @@ def main():
                                                             elapsed_ms)
                 try:
                     # while True:
-                    if labels[label_id] == 1:
+                    if label_id == 1:
                         # 7-> 90*
                         p.ChangeDutyCycle(7)
                         time.sleep(3)
                         p.ChangeDutyCycle(4)
                         time.sleep(3)
                         p.ChangeDutyCycle(7)
-                    elif labels[label_id] == 0:
+                    elif label_id == 0:
                         p.ChangeDutyCycle(7)
                         time.sleep(3)
                         p.ChangeDutyCycle(9.2)
                         time.sleep(3)
                         p.ChangeDutyCycle(7)
-                    elif labels[label_id] == 2:
+                    elif label_id == 2:
                         p.ChangeDutyCycle(7)
                         time.sleep(3)
                 except KeyboardInterrupt:
