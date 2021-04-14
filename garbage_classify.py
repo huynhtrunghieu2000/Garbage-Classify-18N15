@@ -64,7 +64,7 @@ def main():
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(servoPIN, GPIO.OUT)
             p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
-            p.start(2.5)  # Initialization
+            p.start(7)  # Initialization
             stream = io.BytesIO()
             for _ in camera.capture_continuous(
                     stream, format='jpeg', use_video_port=True):
@@ -85,20 +85,18 @@ def main():
                     if label_id == 1:
                         # 7-> 90* duty= angle/18 +2
                         p.ChangeDutyCycle(7)
-                        # GPIO.waitFor(5, GPIO.RISING, 3000)
-                        # GPIO.waitFor(5, GPIO.RISING, 3000)
+                        sleep(1)
                         p.ChangeDutyCycle(4)
-                        # GPIO.waitFor(5, GPIO.RISING, 3000)
+                        sleep(1)
                         p.ChangeDutyCycle(7)
                     elif label_id == 0:
                         p.ChangeDutyCycle(7)
-                        # GPIO.waitFor(5, GPIO.RISING, 3000)
+                        sleep(1)
                         p.ChangeDutyCycle(9.2)
-                        # GPIO.waitFor(5, GPIO.RISING, 3000)
+                        sleep(1)
                         p.ChangeDutyCycle(7)
                     elif label_id == 2:
                         p.ChangeDutyCycle(7)
-                        # GPIO.waitFor(5, GPIO.RISING, 3000)
                 except KeyboardInterrupt:
                     p.stop()
                     GPIO.cleanup()
