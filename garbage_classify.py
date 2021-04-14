@@ -4,7 +4,7 @@ from __future__ import print_function
 
 import argparse
 import io
-import time
+from time import sleep
 import numpy as np
 import picamera
 
