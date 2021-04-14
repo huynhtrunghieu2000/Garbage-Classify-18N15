@@ -80,26 +80,27 @@ def main():
                 stream.truncate()
                 camera.annotate_text = '%s %.2f\n%.1fms' % (labels[label_id], prob,
                                                             elapsed_ms)
-                try:
-                    if labels[label_id] == 1:
-                        # 7-> 90*
-                        p.ChangeDutyCycle(7)
-                        time.sleep(10)
-                        p.ChangeDutyCycle(4)
-                        time.sleep(10)
-                        p.ChangeDutyCycle(7)
-                    elif labels[label_id] == 0:
-                        p.ChangeDutyCycle(7)
-                        time.sleep(10)
-                        p.ChangeDutyCycle(9.2)
-                        time.sleep(10)
-                        p.ChangeDutyCycle(7)
-                    elif labels[label_id] == 2:
-                        p.ChangeDutyCycle(7)
-                        time.sleep(10)
-                except KeyboardInterrupt:
-                    p.stop()
-                    GPIO.cleanup()
+                while True:
+                    try:
+                        if labels[label_id] == 1:
+                            # 7-> 90*
+                            p.ChangeDutyCycle(7)
+                            time.sleep(3)
+                            p.ChangeDutyCycle(4)
+                            time.sleep(3)
+                            p.ChangeDutyCycle(7)
+                        elif labels[label_id] == 0:
+                            p.ChangeDutyCycle(7)
+                            time.sleep(3)
+                            p.ChangeDutyCycle(9.2)
+                            time.sleep(3)
+                            p.ChangeDutyCycle(7)
+                        elif labels[label_id] == 2:
+                            p.ChangeDutyCycle(7)
+                            time.sleep(3)
+                    except KeyboardInterrupt:
+                        p.stop()
+                        GPIO.cleanup()
         finally:
             camera.stop_preview()
 
