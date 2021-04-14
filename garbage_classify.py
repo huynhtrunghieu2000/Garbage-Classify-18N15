@@ -85,18 +85,21 @@ def main():
                     if label_id == 1:
                         # 7-> 90* duty= angle/18 +2
                         p.ChangeDutyCycle(7)
-                        sleep(1)
+                        sleep(3)
                         p.ChangeDutyCycle(4)
-                        sleep(1)
+                        sleep(3)
                         p.ChangeDutyCycle(7)
+                        sleep(3)
                     elif label_id == 0:
                         p.ChangeDutyCycle(7)
-                        sleep(1)
+                        sleep(3)
                         p.ChangeDutyCycle(9.2)
-                        sleep(1)
+                        sleep(3)
                         p.ChangeDutyCycle(7)
+                        sleep(3)
                     elif label_id == 2:
                         p.ChangeDutyCycle(7)
+                        sleep(3)
                 except KeyboardInterrupt:
                     p.stop()
                     GPIO.cleanup()
