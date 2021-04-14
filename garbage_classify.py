@@ -63,7 +63,7 @@ def main():
             servoPIN = 17
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(servoPIN, GPIO.OUT)
-
+            GPIO.pinMode(6, GPIO.INPUT)
             p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
             p.start(2.5)  # Initialization
             stream = io.BytesIO()
@@ -86,19 +86,21 @@ def main():
                     if label_id == 1:
                         # 7-> 90*
                         p.ChangeDutyCycle(7)
-                        time.sleep(3)
+                        GPIO.waitFor(5, GPIO.RISING, 3000)
+                        # GPIO.waitFor(5, GPIO.RISING, 3000)
                         p.ChangeDutyCycle(4)
-                        time.sleep(3)
+                        p.sl
+                        GPIO.waitFor(5, GPIO.RISING, 3000)
                         p.ChangeDutyCycle(7)
                     elif label_id == 0:
                         p.ChangeDutyCycle(7)
-                        time.sleep(3)
+                        GPIO.waitFor(5, GPIO.RISING, 3000)
                         p.ChangeDutyCycle(9.2)
-                        time.sleep(3)
+                        GPIO.waitFor(5, GPIO.RISING, 3000)
                         p.ChangeDutyCycle(7)
                     elif label_id == 2:
                         p.ChangeDutyCycle(7)
-                        time.sleep(3)
+                        GPIO.waitFor(5, GPIO.RISING, 3000)
                 except KeyboardInterrupt:
                     p.stop()
                     GPIO.cleanup()
