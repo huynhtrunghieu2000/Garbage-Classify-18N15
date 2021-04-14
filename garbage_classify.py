@@ -86,14 +86,14 @@ def main():
                         # 7-> 90* duty= angle/18 +2
                         # p.ChangeDutyCycle(7)
                         # sleep(2)
-                        p.ChangeDutyCycle(4)
+                        p.ChangeDutyCycle(3.5)
                         sleep(2.5)
                         p.ChangeDutyCycle(7)
                         sleep(2)
                     elif label_id == 0:
                         # p.ChangeDutyCycle(7)
                         # sleep(2.5)
-                        p.ChangeDutyCycle(9.2)
+                        p.ChangeDutyCycle(9.5)
                         sleep(2.5)
                         p.ChangeDutyCycle(7)
                         sleep(2.5)
