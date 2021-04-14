@@ -84,23 +84,22 @@ def main():
                 try:
                     # while True:
                     if label_id == 1:
-                        # 7-> 90*
+                        # 7-> 90* duty= angle/18 +2
                         p.ChangeDutyCycle(7)
-                        GPIO.waitFor(5, GPIO.RISING, 3000)
+                        # GPIO.waitFor(5, GPIO.RISING, 3000)
                         # GPIO.waitFor(5, GPIO.RISING, 3000)
                         p.ChangeDutyCycle(4)
-                        p.sl
-                        GPIO.waitFor(5, GPIO.RISING, 3000)
+                        # GPIO.waitFor(5, GPIO.RISING, 3000)
                         p.ChangeDutyCycle(7)
                     elif label_id == 0:
                         p.ChangeDutyCycle(7)
-                        GPIO.waitFor(5, GPIO.RISING, 3000)
+                        # GPIO.waitFor(5, GPIO.RISING, 3000)
                         p.ChangeDutyCycle(9.2)
-                        GPIO.waitFor(5, GPIO.RISING, 3000)
+                        # GPIO.waitFor(5, GPIO.RISING, 3000)
                         p.ChangeDutyCycle(7)
                     elif label_id == 2:
                         p.ChangeDutyCycle(7)
-                        GPIO.waitFor(5, GPIO.RISING, 3000)
+                        # GPIO.waitFor(5, GPIO.RISING, 3000)
                 except KeyboardInterrupt:
                     p.stop()
                     GPIO.cleanup()
