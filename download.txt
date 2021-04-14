@@ -1,0 +1,5 @@
+https://googledrive.com/host/154FcdZzTcJwDX_rjCx6O7NILR9ZwVglO/keras_model.h5
+
+python3 gpioControl.py \
+  --model model_unquant.tflite \
+  --labels labels.txt
