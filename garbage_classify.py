@@ -85,13 +85,13 @@ def main():
                         # 7-> 90*
                         p.ChangeDutyCycle(7)
                         time.sleep(10)
-                        p.ChangeDutyCycle(3.8)
+                        p.ChangeDutyCycle(4)
                         time.sleep(10)
                         p.ChangeDutyCycle(7)
                     elif labels[label_id] == 0:
                         p.ChangeDutyCycle(7)
                         time.sleep(10)
-                        p.ChangeDutyCycle(9.4)
+                        p.ChangeDutyCycle(9.2)
                         time.sleep(10)
                         p.ChangeDutyCycle(7)
                     elif labels[label_id] == 2:
