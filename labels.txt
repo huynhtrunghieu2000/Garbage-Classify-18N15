@@ -1,2 +1,3 @@
-0Inorganic
+0 Inorganic
 1 Organic
+2 Undefined
