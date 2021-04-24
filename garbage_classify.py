@@ -81,25 +81,25 @@ def main():
                 camera.annotate_text = '%s %.2f\n%.1fms' % (labels[label_id], prob,
                                                             elapsed_ms)
                 try:
-                    while True:
-                        if label_id == 1:
-                            # 7-> 90* duty= angle/18 +2
-                            # p.ChangeDutyCycle(7)
-                            # sleep(2)
-                            p.ChangeDutyCycle(3)
-                            sleep(2.5)
-                            p.ChangeDutyCycle(7)
-                            sleep(2)
-                        elif label_id == 0:
-                            # p.ChangeDutyCycle(7)
-                            # sleep(2.5)
-                            p.ChangeDutyCycle(10)
-                            sleep(2.5)
-                            p.ChangeDutyCycle(7)
-                            sleep(2.5)
-                        elif label_id == 2:
-                            # p.ChangeDutyCycle(7)
-                            sleep(2.5)
+                    # while True:
+                    if label_id == 1:
+                        # 7-> 90* duty= angle/18 +2
+                        # p.ChangeDutyCycle(7)
+                        # sleep(2)
+                        p.ChangeDutyCycle(3)
+                        sleep(2.5)
+                        p.ChangeDutyCycle(7)
+                        sleep(2)
+                    elif label_id == 0:
+                        # p.ChangeDutyCycle(7)
+                        # sleep(2.5)
+                        p.ChangeDutyCycle(10)
+                        sleep(2.5)
+                        p.ChangeDutyCycle(7)
+                        sleep(2.5)
+                    elif label_id == 2:
+                        # p.ChangeDutyCycle(7)
+                        sleep(2.5)
                 except KeyboardInterrupt:
                     p.stop()
                     GPIO.cleanup()
