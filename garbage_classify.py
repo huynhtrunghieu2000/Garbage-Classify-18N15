@@ -89,17 +89,17 @@ def main():
                         p.ChangeDutyCycle(4)
                         sleep(3)
                         p.ChangeDutyCycle(7)
-                        sleep(3)
+                        sleep(5)
                     elif label_id == 0:
                         p.ChangeDutyCycle(7)
                         sleep(3)
                         p.ChangeDutyCycle(9.2)
                         sleep(3)
                         p.ChangeDutyCycle(7)
-                        sleep(3)
+                        sleep(5)
                     elif label_id == 2:
                         p.ChangeDutyCycle(7)
-                        sleep(3)
+                        sleep(5)
                 except KeyboardInterrupt:
                     p.stop()
                     GPIO.cleanup()
