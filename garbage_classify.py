@@ -15,6 +15,9 @@ from PIL import Image
 from tflite_runtime.interpreter import Interpreter
 
 
+labelExport = 0
+
+
 def load_labels(path):
     with open(path, 'r') as f:
         return {i: line.strip() for i, line in enumerate(f.readlines())}
@@ -42,29 +45,25 @@ def classify_image(interpreter, image, top_k=1):
     return [(i, output[i]) for i in ordered[:top_k]]
 
 
-def main():
+def Classify():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument(
-        '--model', help='File path of .tflite file.', required=True)
-    parser.add_argument(
-        '--labels', help='File path of labels file.', required=True)
+    # parser.add_argument(
+    #     '--model', help='File path of .tflite file.', required=True)
+    # parser.add_argument(
+    #     '--labels', help='File path of labels file.', required=True)
     args = parser.parse_args()
 
-    labels = load_labels(args.labels)
+    labels = load_labels('labels.txt')
 
-    interpreter = Interpreter(args.model)
+    interpreter = Interpreter('model.tflite')
+
     interpreter.allocate_tensors()
     _, height, width, _ = interpreter.get_input_details()[0]['shape']
 
     with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
         camera.start_preview()
         try:
-            servoPIN = 17
-            GPIO.setmode(GPIO.BCM)
-            GPIO.setup(servoPIN, GPIO.OUT)
-            p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
-            p.start(7)  # Initialization
             stream = io.BytesIO()
             for _ in camera.capture_continuous(
                     stream, format='jpeg', use_video_port=True):
@@ -80,32 +79,7 @@ def main():
                 stream.truncate()
                 camera.annotate_text = '%s %.2f\n%.1fms' % (labels[label_id], prob,
                                                             elapsed_ms)
-                try:
-                    # while True:
-                    if label_id == 1:
-                        # 7-> 90* duty= angle/18 +2
-                        # p.ChangeDutyCycle(7)
-                        # sleep(2)
-                        p.ChangeDutyCycle(3)
-                        sleep(2.5)
-                        p.ChangeDutyCycle(7)
-                        sleep(2)
-                    elif label_id == 0:
-                        # p.ChangeDutyCycle(7)
-                        # sleep(2.5)
-                        p.ChangeDutyCycle(10)
-                        sleep(2.5)
-                        p.ChangeDutyCycle(7)
-                        sleep(2.5)
-                    elif label_id == 2:
-                        # p.ChangeDutyCycle(7)
-                        sleep(2.5)
-                except KeyboardInterrupt:
-                    p.stop()
-                    GPIO.cleanup()
+                labelExport = label_id
+
         finally:
             camera.stop_preview()
-
-
-if __name__ == '__main__':
-    main()
