@@ -1,11 +1,6 @@
 import time
-import board
-# import busio as io
-# import adafruit_mlx90614
+from datetime import datetime
 import pyrebase
-#
-# i2c = io.I2C(board.SCL, board.SDA, frequency=100000)
-# mlx = adafruit_mlx90614.MLX90614(i2c)
 
 firebaseConfig = {
     "apiKey": "AIzaSyAjsg2_QADPDyj5AuHt_N3ox5lJJzQcpRk",
@@ -32,24 +27,13 @@ print("Send Data to Firebase Using Raspberry Pi")
 print("—————————————-")
 print()
 
-# ambientString = "{:.2f}".format(mlx.ambient_temperature)
-# ambientString = input()
-# objectString = input()
-# objectString = "{:.2f}".format(mlx.object_temperature)
+def updateTrashPercent(type,percent):
+  now = datetime.now()
+  dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+  db.child("trash").child(type).update({"dated": "{}".format(str(dt_string)), "percent": "{}".format(str(percent))})
 
-# ambientCelsius = float(ambientString)
-# objectCelsius = float(objectString)
-#
-# print("Ambient Temp: {} °C".format(ambientString))
-# print("Object Temp: {} °C".format(objectString))
-# print()
-
-# data = {
-#   "ambient": ambientCelsius,
-#   "object": objectCelsius,
-# }
-db.child("trash").child("inorganic").update({"dated": "10.5.2021", "percent": "59"})
-db.child("trash").child("organic").update({"dated": "10.5.2021", "percent": "59"})
+# db.child("trash").child("inorganic").update({"dated": "10.5.2021", "percent": "59"})
+# db.child("trash").child("organic").update({"dated": "10.5.2021", "percent": "59"})
 # db.child("mlx90614").child("2-push").push(data)
 
 # time.sleep(2)
