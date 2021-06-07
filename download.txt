@@ -1,5 +1,0 @@
-https://googledrive.com/host/154FcdZzTcJwDX_rjCx6O7NILR9ZwVglO/keras_model.h5
-
-python3 garbage_classify.py \
-  --model model.tflite \
-  --labels labels.txt
