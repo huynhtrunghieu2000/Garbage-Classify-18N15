@@ -106,8 +106,8 @@ if __name__ == '__main__':
         threadOpenClose.start()
 
     except KeyboardInterrupt:
-        #         threadClassify.join()
-        threadOpenClose.join()
-        threadCheckPercent.join()
+        # #         threadClassify.join()
+        # threadOpenClose.join()
+        # threadCheckPercent.join()
         GPIO.cleanup()
         print('done')
