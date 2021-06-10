@@ -49,6 +49,7 @@ def checkHuman():
 def open_close():
     while True:
         if checkHuman() == True:
+            print('open_close',)
             servoControl.RollToAngle(servo1, 90)
             time.sleep(3)
             continue
@@ -84,7 +85,7 @@ def check_percent_garbage(trig, echo):
         dis = ultrasonic.distance(trig, echo)
         heightAtEmpty = 100
         percent = 100-(dis/heightAtEmpty)*100
-        print(percent)
+        print("percent", percent)
         # return 100-(dis/heightAtEmpty)*100
         # print('checkpercent')
         try:

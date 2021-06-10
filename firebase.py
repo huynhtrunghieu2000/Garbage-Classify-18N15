@@ -25,7 +25,6 @@ db = firebase.database()
 
 print("Send Data to Firebase Using Raspberry Pi")
 print("—————————————-")
-print()
 
 def updateTrashPercent(type,percent):
   now = datetime.now()
