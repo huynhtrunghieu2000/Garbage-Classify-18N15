@@ -16,6 +16,7 @@ from tflite_runtime.interpreter import Interpreter
 
 
 labelExport = 0
+gabIsEmpty = 0
 
 
 def load_labels(path):
@@ -80,6 +81,14 @@ def Classify():
                 camera.annotate_text = '%s %.2f\n%.1fms' % (labels[label_id], prob,
                                                             elapsed_ms)
                 labelExport = label_id
-
+                
+                
+                if labelExport == 2 :
+                    gabIsEmpty = 1
+                    sleep(1)
+                    raise Exception("No garbage")
+        except :
+            print("Out Camera")
+            
         finally:
             camera.stop_preview()

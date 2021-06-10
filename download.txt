@@ -4,7 +4,19 @@ python3 garbage_classify.py \
   --model model.tflite \
   --labels labels.txt
 
+US_TRIG1 = 8
+US_ECHO1 = 10
+US_TRIG2 = 16
+US_ECHO2 = 18
+US_TRIG3 = 22
+US_ECHO3 = 24
+SERVO1 = 11
+SERVO2 = 13
+
+
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install python3-tflite-runtime
+pip3 install pyrebase
+
