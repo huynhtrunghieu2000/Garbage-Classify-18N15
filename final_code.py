@@ -37,6 +37,7 @@ servo2 = GPIO.PWM(SERVO2, 50)
 status = "idle"
 humanStanding = 0
 
+
 def checkHuman():
     dis = ultrasonic.distance(US_TRIG1, US_ECHO1)
     if dis < 100:
@@ -44,16 +45,17 @@ def checkHuman():
     elif dis > 100:
         return False
 
+
 def open_close():
-    while True:       
+    while True:
         if checkHuman() == True:
             servoControl.RollToAngle(servo1, 90)
             time.sleep(3)
             continue
         else:
             servoControl.RollToAngle(servo1, 0)
-            threadClassify = threading.Thread(target=classify_garbage, args=())
-            threadClassify.start()
+            # threadClassify = threading.Thread(target=classify_garbage, args=())
+            # threadClassify.start()
     # while True:
     #     if dist == 0:
 
@@ -65,14 +67,14 @@ def classify_garbage():
         time.sleep(1)
         print('classify:', classify.labelExport)
     if classify.labelExport == 0:
-            #servoControl.RollToAngle(servo2, 45)
+        #servoControl.RollToAngle(servo2, 45)
         print("0")
     elif classify.labelExport == 1:
-            #servoControl.RollToAngle(servo2, 135)
+        #servoControl.RollToAngle(servo2, 135)
         print("1")
     else:
         print("2")
-            #servoControl.RollToAngle(servo2, 90)
+        #servoControl.RollToAngle(servo2, 90)
         # print('classify')
         # time.sleep(2)
 
@@ -93,23 +95,19 @@ def check_percent_garbage(trig, echo):
         time.sleep(1)
 
 
-
 if __name__ == '__main__':
     try:
         threadCheckPercent = threading.Thread(
             target=check_percent_garbage, args=(US_TRIG2, US_ECHO2))
         threadCheckPercent.start()
-        
-        
+
         threadOpenClose = threading.Thread(target=open_close, args=())
         threadOpenClose.start()
-        
-        
-        
+
     except KeyboardInterrupt:
-#         threadClassify.join()
+        #         threadClassify.join()
         threadOpenClose.join()
         threadCheckPercent.join()
         print('done')
-    finally:        
+    finally:
         GPIO.cleanup()
