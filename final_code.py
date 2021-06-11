@@ -108,7 +108,7 @@ if __name__ == '__main__':
         threadOpenClose = threading.Thread(target=open_close, args=())
         threadOpenClose.start()
 
-    except KeyboardInterrupt:
+    except:
         GPIO.cleanup()
         print('done')
         # #         threadClassify.join()
