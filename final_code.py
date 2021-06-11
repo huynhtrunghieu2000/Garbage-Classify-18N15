@@ -28,11 +28,13 @@ GPIO.setup(US_ECHO3, GPIO.IN)
 SERVO1 = 11
 GPIO.setup(SERVO1, GPIO.OUT)
 servo1 = GPIO.PWM(SERVO1, 50)
+servo1.start(0)
 
 # Servo 2
 SERVO2 = 13
 GPIO.setup(SERVO2, GPIO.OUT)
 servo2 = GPIO.PWM(SERVO2, 50)
+servo2.start(0)
 
 status = "idle"
 humanStanding = 0
@@ -110,5 +112,5 @@ if __name__ == '__main__':
         GPIO.cleanup()
         print('done')
         # #         threadClassify.join()
-        threadOpenClose.stop()
-        threadCheckPercent.stop()
+        threadOpenClose.join()
+        threadCheckPercent.join()
