@@ -49,6 +49,7 @@ def classify_image(interpreter, image, top_k=1):
 
 
 def countToStop():
+    global count
     while count > 0:
         count = count - 1
         print(count, " s left...")
