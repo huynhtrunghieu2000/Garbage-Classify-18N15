@@ -55,30 +55,29 @@ def open_close():
             print('open_close',)
             servoControl.RollToAngle(servo1, 90)
             time.sleep(3)
+            classify.gabIsAvail = 1
             continue
         else:
             servoControl.RollToAngle(servo1, 0)
-            # threadClassify = threading.Thread(target=classify_garbage, args=())
-            # threadClassify.start()
+            if classify.gabIsAvail == 1:
+                threadClassify = threading.Thread(
+                    target=classify_garbage, args=())
+                threadClassify.start()
     # while True:
     #     if dist == 0:
 
 
 def classify_garbage():
-    if classify.gabIsEmpty == 0:
-        classify.Classify()
-    else:
-        time.sleep(1)
-        print('classify:', classify.labelExport)
+    classify.Classify()
     if classify.labelExport == 0:
-        #servoControl.RollToAngle(servo2, 45)
-        print("0")
+        # servoControl.RollToAngle(servo2, 45)
+        print("Huu Co")
     elif classify.labelExport == 1:
-        #servoControl.RollToAngle(servo2, 135)
-        print("1")
+        # servoControl.RollToAngle(servo2, 135)
+        print("Vo co")
     else:
-        print("2")
-        #servoControl.RollToAngle(servo2, 90)
+        print("Undefined")
+        # servoControl.RollToAngle(servo2, 90)
         # print('classify')
         # time.sleep(2)
 

@@ -16,7 +16,8 @@ from tflite_runtime.interpreter import Interpreter
 
 
 labelExport = 0
-gabIsEmpty = 0
+gabIsAvail = 0
+count = 3
 
 
 def load_labels(path):
@@ -44,6 +45,12 @@ def classify_image(interpreter, image, top_k=1):
 
     ordered = np.argpartition(-output, top_k)
     return [(i, output[i]) for i in ordered[:top_k]]
+
+
+def countToStop():
+    while count > 0:
+        count = count - 1
+        sleep(1)
 
 
 def Classify():
@@ -81,14 +88,14 @@ def Classify():
                 camera.annotate_text = '%s %.2f\n%.1fms' % (labels[label_id], prob,
                                                             elapsed_ms)
                 labelExport = label_id
-                
-                
-                if labelExport == 2 :
-                    gabIsEmpty = 1
+
+                if count == 0:
+                    gabIsAvail = 0
+                    print("Done classify", labels[label_id])
                     sleep(1)
                     raise Exception("No garbage")
-        except :
+        except:
             print("Out Camera")
-            
+
         finally:
             camera.stop_preview()
