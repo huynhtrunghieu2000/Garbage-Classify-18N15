@@ -58,7 +58,7 @@ def countToStop():
 
 
 def Classify():
-    # global count
+    global count
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     # parser.add_argument(
