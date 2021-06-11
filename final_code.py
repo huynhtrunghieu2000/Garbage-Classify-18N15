@@ -59,6 +59,7 @@ def open_close():
         else:
             servoControl.RollToAngle(servo1, 0)
             if classify.gabIsAvail == 1:
+                classify.count = 3
                 threadClassify = threading.Thread(
                     target=classify_garbage, args=())
                 threadClassify.start()
