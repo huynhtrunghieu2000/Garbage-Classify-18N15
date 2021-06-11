@@ -40,6 +40,7 @@ humanStanding = 0
 
 def checkHuman():
     dis = ultrasonic.distance(US_TRIG1, US_ECHO1)
+    print(dis)
     if dis < 100:
         return True
     elif dis > 100:
