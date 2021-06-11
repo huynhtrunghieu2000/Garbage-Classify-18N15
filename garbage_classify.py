@@ -68,7 +68,7 @@ def Classify():
 
     interpreter.allocate_tensors()
     _, height, width, _ = interpreter.get_input_details()[0]['shape']
-
+    countToStop()
     with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
         camera.start_preview()
         try:
