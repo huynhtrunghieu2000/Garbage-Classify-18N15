@@ -10,7 +10,8 @@ import picamera
 
 import RPi.GPIO as GPIO
 import time
-
+import threading
+from threading import Thread
 from PIL import Image
 from tflite_runtime.interpreter import Interpreter
 
@@ -50,7 +51,9 @@ def classify_image(interpreter, image, top_k=1):
 def countToStop():
     while count > 0:
         count = count - 1
+        print(count, " s left...")
         sleep(1)
+    print("count done")
 
 
 def Classify():
@@ -68,7 +71,9 @@ def Classify():
 
     interpreter.allocate_tensors()
     _, height, width, _ = interpreter.get_input_details()[0]['shape']
-    countToStop()
+    countStop = threading.Thread(
+        target=countToStop, args=())
+    countStop.start()
     with picamera.PiCamera(resolution=(640, 480), framerate=30) as camera:
         camera.start_preview()
         try:
