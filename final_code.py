@@ -71,14 +71,18 @@ def open_close():
 def classify_garbage():
     classify.Classify()
     if classify.labelExport == 0:
-        # servoControl.RollToAngle(servo2, 45)
-        print("Huu Co")
+        servoControl.RollToAngle(servo2, 45)
+        time.sleep(2)
+        servoControl.RollToAngle(servo2, 90)
+        time.sleep(2)
+        servoControl.RollToAngle(servo2, 135)
+        print("Huu Co xoayyy")
     elif classify.labelExport == 1:
-        # servoControl.RollToAngle(servo2, 135)
-        print("Vo co")
+#         servoControl.RollToAngle(servo2, 135)
+        print("Vo co xoayyy")
     else:
-        print("Undefined")
-        # servoControl.RollToAngle(servo2, 90)
+        print("Undefined xoayyy")
+#         servoControl.RollToAngle(servo2, 90)
         # print('classify')
         # time.sleep(2)
 

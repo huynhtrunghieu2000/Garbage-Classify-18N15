@@ -8,7 +8,6 @@ from time import sleep
 import numpy as np
 import picamera
 
-import RPi.GPIO as GPIO
 import time
 import threading
 from threading import Thread
@@ -59,13 +58,15 @@ def countToStop():
 
 def Classify():
     global count
+    global labelExport
+    global gabIsAvail
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     # parser.add_argument(
     #     '--model', help='File path of .tflite file.', required=True)
     # parser.add_argument(
     #     '--labels', help='File path of labels file.', required=True)
-    args = parser.parse_args()
+    #     args = parser.parse_args()
 
     labels = load_labels('labels.txt')
 
