@@ -64,8 +64,6 @@ def open_close():
                     target=classify_garbage, args=())
                 threadClassify.start()
                 threadClassify.join()
-    # while True:
-    #     if dist == 0:
 
 
 def classify_garbage():
@@ -87,34 +85,40 @@ def classify_garbage():
         # time.sleep(2)
 
 
-def check_percent_garbage(trig, echo):
+def check_percent_garbage(typeGb,height,trig, echo):
     while True:
         dis = ultrasonic.distance(trig, echo)
-        heightAtEmpty = 100
-        percent = 100-(dis/heightAtEmpty)*100
+        percent = 100-(dis/height)*100
         print("percent", percent)
         # return 100-(dis/heightAtEmpty)*100
         # print('checkpercent')
         try:
-            firebase.updateTrashPercent("inorganic", percent)
+            firebase.updateTrashPercent(typeGb, percent)
         except:
             print('error posting firebase')
 
-        time.sleep(1)
+        time.sleep(3)
 
 
 if __name__ == '__main__':
     try:
-        threadCheckPercent = threading.Thread(
-            target=check_percent_garbage, args=(US_TRIG2, US_ECHO2))
+        threadCheckPercentInOrganic = threading.Thread(
+            target=check_percent_garbage, args=("inorganic",40,US_TRIG1, US_ECHO1))
+        threadCheckPercent.start()
+        
+        threadCheckPercentOrganic = threading.Thread(
+            target=check_percent_garbage, args=("organic",40,US_TRIG2, US_ECHO2))
         threadCheckPercent.start()
 
         threadOpenClose = threading.Thread(target=open_close, args=())
         threadOpenClose.start()
+        
+        threadCheckPercentInOrganic.join()
+        threadCheckPercentOrganic.join()
+        threadOpenClose.join()
+        
+        
 
     except:
         GPIO.cleanup()
         print('done')
-        # #         threadClassify.join()
-        threadOpenClose.join()
-        threadCheckPercent.join()
